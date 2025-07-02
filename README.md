@@ -24,33 +24,33 @@
 
 2. Install dependencies:
 
-  pip install -r requirements.txt
+   pip install -r requirements.txt
 
 3. Replace Sightengine API credentials in app.py:
 
-  API_USER = 'your_user'
-  API_SECRET = 'your_secret'
+   API_USER = 'your_user'
+   API_SECRET = 'your_secret'
 
 4. Run the app:
    
-  python app.py
+   python app.py
 
 ## Steps to Get Sightengine API Credentials
 
 1. Go to the official website:
-  https://sightengine.com/
+   https://sightengine.com/
 
 2. Create a free account (if you haven’t):
 
-  Click on "Sign Up"
-  Enter your email and password, or use Google login
+   Click on "Sign Up"
+   Enter your email and password, or use Google login
 
 3. After logging in, you’ll be redirected to the Dashboard
 
 4. In the dashboard:
-  You'll see your API User and API Secret
+   You'll see your API User and API Secret
 
 5. Example format:
 
-  API_USER: 1234567890
-  API_SECRET: a1b2c3d4e5f6g7h8i9j0
+   API_USER: 1234567890
+   API_SECRET: a1b2c3d4e5f6g7h8i9j0
