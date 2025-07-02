@@ -15,6 +15,9 @@
 - Scikit-learn (Naive Bayes + TF-IDF)
 - Sightengine API (Image moderation)
 
+## Dataset Link
+   https://www.kaggle.com/datasets/andrewmvd/cyberbullying-classification
+
 ## 🚀 How to Run
 
 1. Clone this repo:
@@ -22,16 +25,19 @@
    git clone https://github.com/yourusername/civility-check.git
    cd civility-check
 
-2. Install dependencies:
+2. Create Virtual Environment and Install dependencies:
 
+   create a virtual environment
+   a. python -m venv venv
+   b. venv\Scripts\activate
    pip install -r requirements.txt
-
-3. Replace Sightengine API credentials in app.py:
+   
+4. Replace Sightengine API credentials in app.py:
 
    API_USER = 'your_user'
    API_SECRET = 'your_secret'
 
-4. Run the app:
+5. Run the app:
    
    python app.py
 
@@ -54,3 +60,5 @@
 
    API_USER: 1234567890
    API_SECRET: a1b2c3d4e5f6g7h8i9j0
+
+## There exists a sample image static/uploads/chill.png for testing...all sucessfull uploads are saved here...
