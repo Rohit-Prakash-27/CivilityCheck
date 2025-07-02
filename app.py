@@ -18,8 +18,8 @@ app.secret_key = 'supersecretkey'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 # Sightengine credentials
-API_USER = '1631085015'
-API_SECRET = 'vF9csp52tKUqWiP9VA9vUVbzQmyjbuNR'
+API_USER = 'your_user'
+API_SECRET = 'your_secret'
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
