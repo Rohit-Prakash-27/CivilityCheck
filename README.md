@@ -22,7 +22,7 @@
 
 1. Clone this repo:
    
-   git clone https://github.com/yourusername/civility-check.git
+   git clone https://github.com/Rohit-Prakash-27/CivilityCheck.git
    cd civility-check
 
 2. Create Virtual Environment and Install dependencies:
