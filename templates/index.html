@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offensive Content Detection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #4cc9f0;
+            --success-color: #2ec4b6;
+            --danger-color: #e63946;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --border-radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--dark-color);
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .content {
+            background: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-weight: 600;
+            font-size: 28px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .upload-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            border: 2px dashed #e0e0e0;
+            border-radius: var(--border-radius);
+            transition: all 0.3s ease;
+        }
+
+        .upload-container:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .custom-file-upload {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            text-align: center;
+            border-radius: var(--border-radius);
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #e9ecef;
+        }
+
+        .custom-file-upload i {
+            margin-right: 8px;
+            color: var(--primary-color);
+        }
+
+        #file-name {
+            margin-top: 10px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        button {
+            padding: 12px 30px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        button i {
+            margin-right: 8px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        li {
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 10px;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            display: inline-block;
+        }
+
+        li.danger {
+            background-color: rgba(230, 57, 70, 0.1);
+            color: var(--danger-color);
+        }
+
+        li.success {
+            background-color: rgba(46, 196, 182, 0.1);
+            color: var(--success-color);
+        }
+
+        .image-preview {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+        }
+
+        .image-preview h3 {
+            text-align: center;
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        img {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1.02);
+        }
+
+        .result-container {
+            margin-top: 20px;
+            text-align: center;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            background-color: #f8f9fa;
+        }
+
+        p {
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .result {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 30px 20px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h2>Civility Check: Keep the Internet Kind, One Meme at a Time!</h2>
+
+            <form method="POST" enctype="multipart/form-data">
+                <div class="upload-container">
+                    <div class="file-input-wrapper">
+                        <label class="custom-file-upload">
+                            <i class="fas fa-cloud-upload-alt"></i> Choose an image
+                            <input type="file" name="image" id="image-input" required>
+                        </label>
+                        <div id="file-name"></div>
+                    </div>
+                    <button type="submit"><i class="fas fa-check-circle"></i> Upload & Check</button>
+                </div>
+            </form>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <ul>
+                  {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+
+            {% if uploaded %}
+                <div class="image-preview">
+                    <h3>Uploaded Image</h3>
+                    <img src="{{ image_url }}" alt="Uploaded content">
+                    <div class="result-container">
+                        <p><span class="result">Moderation Result:</span> {{ result }}</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('image-input');
+        const fileNameDisplay = document.getElementById('file-name');
+
+        fileInput.addEventListener('change', function () {
+            if (this.files.length > 0) {
+                fileNameDisplay.textContent = `Selected File: ${this.files[0].name}`;
+            } else {
+                fileNameDisplay.textContent = '';
+            }
+        });
+    </script>
+</body>
+</html>
